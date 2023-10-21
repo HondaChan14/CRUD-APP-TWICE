@@ -6,12 +6,14 @@ require('dotenv').config()
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
-    dbName = 'star-wars-quotes'
+    dbName = 'star-wars-quotes',
+    collection
 
     MongoClient.connect(dbConnectionStr)
     .then(client => {
         console.log(`Connected to ${dbName} Database`);
         db = client.db(dbName);
+        collection = db.collection('rappers')
     })
     .catch(error => {
         console.error('Error connecting to the database:', error);
@@ -23,7 +25,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-app.get('/',(request, response)=>{
+app.get('/', (request, response)=>{
     db.collection('rappers').find().sort({likes: -1}).toArray()
     .then(data => {
         response.render('index.ejs', { info: data })
