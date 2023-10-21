@@ -7,13 +7,13 @@ require('dotenv').config()
 let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'star-wars-quotes',
-    collection
+    dbCollection
 
     MongoClient.connect(dbConnectionStr)
     .then(client => {
         console.log(`Connected to ${dbName} Database`);
         db = client.db(dbName);
-        collection = db.collection('rappers')
+        dbCollection = db.collection('rappers')
     })
     .catch(error => {
         console.error('Error connecting to the database:', error);
@@ -26,7 +26,7 @@ app.use(express.json())
 
 
 app.get('/', (request, response)=>{
-    collection.find().sort({likes: -1}).toArray()
+    dbCollection.find().sort({likes: -1}).toArray()
     .then(data => {
         response.render('index.ejs', { info: data })
     })
@@ -34,7 +34,7 @@ app.get('/', (request, response)=>{
 })
 
 app.post('/addAlbum', (request, response) => {
-    collection.insertOne({
+    dbCollection.insertOne({
     coverImage : request.body.coverImage,
     artist: request.body.artist,
     title: request.body.title, likes: 0})
@@ -46,7 +46,7 @@ app.post('/addAlbum', (request, response) => {
 })
 
 app.put('/addOneLike', (request, response) => {
-    collection.updateOne({
+    dbCollection.updateOne({
         coverImage : request.body.coverImageS, 
         artist: request.body.artistS, 
         title: request.body.titleS,
@@ -67,7 +67,7 @@ app.put('/addOneLike', (request, response) => {
 })
 
 app.delete('/deleteAlbum', (request, response) => {
-    collection.deleteOne({artist: request.body.artistS})
+    dbCollection.deleteOne({artist: request.body.artistS})
     .then(result => {
         console.log('Album Deleted')
         response.json('Album Deleted')
