@@ -2,7 +2,7 @@
   "name": "api-crud-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "18.x"
   },
@@ -16,7 +16,7 @@
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "mongodb": "^6.1.0",
+    "mongodb": "^6.2.0",
     "nodemon": "^3.0.1",
     "vercel": "^32.4.1"
   }
