@@ -8,7 +8,7 @@ let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'star-wars-quotes'
 
-MongoClient.connect(dbConnectionStr)
+MongoClient.connect(dbConnectionStr, { useNewUrlParser: true })
     .then(client => {
         console.log(`Connected to ${dbName} Database`)
         db = client.db(dbName)
