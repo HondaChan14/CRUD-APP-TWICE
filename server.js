@@ -27,7 +27,7 @@ app.use(express.json())
 
 app.get('/', async (request, response) => {
     try {
-        const data = await collection.find().sort({ likes: -1 }).toArray();
+        const data = await dbCollection.find().sort({ likes: -1 }).toArray();
         response.render('index.ejs', { info: data });
     } catch (error) {
         console.error(error);
