@@ -25,13 +25,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-app.get('/', (request, response)=>{
-    dbCollection.find().sort({likes: -1}).toArray()
-    .then(data => {
-        response.render('index.ejs', { info: data })
-    })
-    .catch(error => console.error(error))
-})
+app.get('/', async (request, response) => {
+    try {
+        const data = await collection.find().sort({ likes: -1 }).toArray();
+        response.render('index.ejs', { info: data });
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 app.post('/addAlbum', (request, response) => {
     dbCollection.insertOne({
