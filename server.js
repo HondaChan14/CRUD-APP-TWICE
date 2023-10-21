@@ -26,7 +26,7 @@ app.use(express.json())
 
 
 app.get('/', (request, response)=>{
-    collection('rappers').find().sort({likes: -1}).toArray()
+    collection.find().sort({likes: -1}).toArray()
     .then(data => {
         response.render('index.ejs', { info: data })
     })
@@ -34,7 +34,7 @@ app.get('/', (request, response)=>{
 })
 
 app.post('/addAlbum', (request, response) => {
-    collection('rappers').insertOne({
+    collection.insertOne({
     coverImage : request.body.coverImage,
     artist: request.body.artist,
     title: request.body.title, likes: 0})
@@ -46,7 +46,7 @@ app.post('/addAlbum', (request, response) => {
 })
 
 app.put('/addOneLike', (request, response) => {
-    collection('rappers').updateOne({
+    collection.updateOne({
         coverImage : request.body.coverImageS, 
         artist: request.body.artistS, 
         title: request.body.titleS,
@@ -67,7 +67,7 @@ app.put('/addOneLike', (request, response) => {
 })
 
 app.delete('/deleteAlbum', (request, response) => {
-    collection('rappers').deleteOne({artist: request.body.artistS})
+    collection.deleteOne({artist: request.body.artistS})
     .then(result => {
         console.log('Album Deleted')
         response.json('Album Deleted')
