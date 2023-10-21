@@ -6,8 +6,8 @@ require('dotenv').config()
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
-    dbName = 'star-wars-quotes',
-    dbCollection
+    dbName = 'star-wars-quotes'
+var dbCollection
 
     MongoClient.connect(dbConnectionStr)
     .then(client => {
